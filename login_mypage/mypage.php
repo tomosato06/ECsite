@@ -12,15 +12,13 @@ if(empty($_SESSION['id'])){
         <a href='http://localhost/login_mypage/login.php'>ログイン画面へ</a>"
            );
     }
-
     //プリペアードステートメントSQL文を作る
     $stmt =$pdo->prepare("select * from login_mypage where mail=? && password=?");
-
     //パラメータセット
     $stmt->bindValue(1,$_POST["mail"]);
     $stmt->bindValue(2,$_POST["password"]);
-
     $stmt->execute();
+    $pdo =NULL;
 
     //データ取得、session代入
     while($row=$stmt->fetch()){
@@ -41,9 +39,6 @@ if(empty($_SESSION['id'])){
     setcookie('password',$_POST['password'],time()+60*60*24*7);
     
 }
-
-$pdo =NULL;
-
 ?>
 
 <!DOCTYPE html>
